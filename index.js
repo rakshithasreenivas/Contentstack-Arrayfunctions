@@ -114,7 +114,7 @@ const data = [
     },
 ];
 
-// Constructor function
+// Constructor fn
 const Employee = function (obj) {
     this.id = obj.id;
     this.name = obj.name;
@@ -141,13 +141,13 @@ Employee.containKeys = (objKeys) => {
 // Creating Array of Employee
 const employees = data.map((e) => new Employee(e));
 
-// console.log(employees);
+ console.log(employees);
 
 const getEmployeeOfId = (id) => {
     return employees.filter((employee) => employee.id === id)[0];
 };
 
-// console.log(getEmployeeOfId("2"));
+ console.log(getEmployeeOfId("6"));
 
 const findEmployee = (obj) => {
     const objKeys = Object.keys(obj); // get all obj's key
@@ -168,49 +168,36 @@ const findEmployee = (obj) => {
     return result[0];
 };
 
-// console.log(
-//     findEmployee({
-//         name: "Rakshitha S",
-//         id: "6",
-//         profileImage: "assets/images/Rakshitha.jpg",
-//     })
-// );
-
-const updateEmployee = (id, obj) => {
-    const objKeys = Object.keys(obj);
-
-    if (!Employee.containKeys(objKeys)) return null;
-
-    const employee = getEmployeeOfId(id);
-
-    Object.entries(obj).forEach((entry) => {
-        const [key, value] = entry;
-        if (key == "id") {
-            console.log(`Updating "${key}" is prohibited!`);
-            return;
-        }
-
-        employee[key] = value;
+ console.log(
+    findEmployee({
+        name: "Rakshitha S",
+        id: "6",
+        profileImage: "assets/images/Rakshitha.jpg",
+   })
+ );
+function updateEmployeeById(empid, key, value)   {
+    var index = employees.findIndex(function(employee, index)   {
+        if(employee.id === empid)
+            return true
     });
+    if(index !== -1)    {
+        employees[index][key] = value
+        console.log("Updated Value: ", employees[index])
+    }
+    else
+        console.log("Invalid id")
+}
 
-    return employee;
-};
+updateEmployeeById("6", "name", "Rakshitha Sreenivasa")
 
-// console.log(
-//     updateEmployee("6", {
-//         id: 27,
-//         name: "Rakshitha S",
-//         profileImage: "assets/images/Rakshitha.jpg",
-//     })
-// );
 
 const deleteEmployee = (id) => {
     employees.splice(
         employees.findIndex((employee) => employee.id === id),
-        1
+        
     );
 };
 
-// deleteEmployee("6");
-// console.log(getEmployeeOfId("6"));
-// console.log(employees);
+deleteEmployee("7");
+console.log(getEmployeeOfId("6"));
+ console.log(employees);
